@@ -122,3 +122,10 @@ Resources:
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
+
+Outputs:
+  ALBURL:
+    Description: The url for application load balanacer
+    Value: !GetAtt WebAppLB.DNSName
+    Export:
+      Name: !Sub "${EnvironmentName}-ALB-URL"
