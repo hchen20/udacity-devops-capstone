@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Check version") {
             steps {
-                ls -ltr
+                sh "ls -ltr"
                 
             }
         }
