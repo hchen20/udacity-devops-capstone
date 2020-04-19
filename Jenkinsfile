@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Check version") {
             steps {
-                sh "ls -ltr"
+                sh "docker run hello-world"
                 
             }
         }
