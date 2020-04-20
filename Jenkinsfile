@@ -61,8 +61,8 @@ pipeline {
         stage("Deploy Container") {
             steps {
 
-					sh "cat app.yml | sed -e "s/BUILD/$BUILD_NUMBER/g" | /home/ubuntu/kubectl create -f -"
-                    sh "/home/ubuntu/kubectl get svc nginx-deployment -o jsonpath="{.status.loadBalancer.ingress[*].hostname}""
+					sh 'cat app.yml | sed -e "s/BUILD/$BUILD_NUMBER/g" | /home/ubuntu/kubectl create -f -'
+                    sh '/home/ubuntu/kubectl get svc nginx-deployment -o jsonpath="{.status.loadBalancer.ingress[*].hostname}"'
 
             }
         }
