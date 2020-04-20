@@ -42,7 +42,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'eks-admin', region: 'us-east-1') {
 					echo "Hello AWS"
-					h "sh ./create_eks.sh prod-$BUILD_NUMBER"
+					sh "sh ./create_eks.sh prod-$BUILD_NUMBER"
 				}
             }
         }
