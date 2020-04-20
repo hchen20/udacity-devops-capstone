@@ -62,6 +62,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'eks-admin', region: 'us-east-1') {
 					sh 'cat app.yml | sed -e "s/BUILD/$BUILD_NUMBER/g" | /home/ubuntu/kubectl create -f -'
+                    sh 'sleep 60'
                     sh '/home/ubuntu/kubectl get svc nginx-deployment -o jsonpath="{.status.loadBalancer.ingress[*].hostname}"'
                 }
             }
