@@ -37,5 +37,35 @@ pipeline {
                 }
             }
         }
+
+        stage("Create EKS cluster") {
+            steps {
+                withAWS(credentials: 'eks-admin', region: 'us-east-1') {
+					echo "Hello AWS"
+					h "sh ./create_eks.sh prod-$BUILD_NUMBER"
+				}
+            }
+        }
+
+        stage("Set EKS Context") {
+            steps {
+                withAWS(credentials: 'eks-admin', region: 'us-east-1') {
+					echo "Hello Set Context"
+					sh "aws eks --region us-east-1 update-kubeconfig --name prod-$BUILD_NUMBER"
+					sh "/home/ubuntu/kubectl get svc"
+				}
+                
+            }
+        }
+
+        stage("Deploy Container") {
+            steps {
+
+					sh "cat app.yml | sed -e "s/BUILD/$BUILD_NUMBER/g" | /home/ubuntu/kubectl create -f -"
+                    sh "/home/ubuntu/kubectl get svc nginx-deployment -o jsonpath="{.status.loadBalancer.ingress[*].hostname}""
+
+            }
+        }
+
     }
 }
