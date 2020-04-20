@@ -15,7 +15,7 @@ pipeline {
 
         stage("Lint HTML files") {
             steps {
-                sh "tidy -q -e *.html"
+                sh "tidy -q -e './html/*.html'"
             }
         }
 
